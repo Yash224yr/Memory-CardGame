@@ -99,4 +99,27 @@
     height: 18%;
   }
 }
+@media all and (max-width:400px){
+  .cardbox{
+    width: 100%;
+  }
+  .flip-card{
+    width: 24%;
+    height: 19%;
+  }
+}
+@media all and (max-width:364px){
+  .cardbox{
+    width: 100%;
+  }
+  .flip-card{
+    margin: 16px;
+  }
+}
+
+@media all and (max-width:347px){
+  .flip-card{
+    margin: 8px;
+  }
+}
 
