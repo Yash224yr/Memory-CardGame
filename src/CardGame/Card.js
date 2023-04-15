@@ -8,6 +8,7 @@ import mouse from "../CardGame/Images/mouse.png"
 import rabbit from "../CardGame/Images/rabbit.png"
 import backimage from "../CardGame/Images/backimage.png"
 import { cardcontext } from './Memory'
+import { useNavigate } from 'react-router-dom'
 
 function Card() {
 
@@ -38,53 +39,56 @@ function Card() {
     const [check, setcheck] = useState([])
     const [flip, setflip] = useState([])
     const [matched, setMatched] = useState([])
-    const {moves, setmoves} = useContext(cardcontext)
-    const {timer, settimer} = useContext(cardcontext)
-    
+    const { moves, setmoves } = useContext(cardcontext)
+    const { timer, settimer } = useContext(cardcontext)
+    const navigate = useNavigate()
+
 
     function handleclick(index, id) {
         setflip([...flip, index])
         setcheck([...check, id])
+        
     }
 
 
 
     useEffect(() => {
-        if (timer > 0) {
-         settimer(timer-1)
+        let intervalId;
+        if (timer === 0) {
+            navigate("/end")
+        } else {
+            intervalId = setInterval(() => {
+                settimer((prevTimer) => prevTimer - 1);
+            }, 1000);
         }
-        else {
-          const timeend = setInterval(() => {
-            console.log("done")
-          }, 1000)
-          return () => clearInterval(timeend)
-        }
-      }, [timer])
+        return () => clearInterval(intervalId);
+    }, [timer]);
 
 
 
 
     useEffect(() => {
-        console.log(check)
-
+        console.log(flip)
         if (flip.length === 2) {
-            if (check[0] === check[1]) {
+            if (check[0] === check[1] && flip[0] != flip[1]) {
                 setMatched([...matched, check[0], check[1]])
-                console.log("matched")
                 setflip([])
                 setcheck([])
-                setmoves(moves+1)
+                setmoves(moves + 1)
             }
             else {
                 setTimeout(() => {
                     setflip([])
                     setcheck([])
-                setmoves(moves+1)
+                    setmoves(moves + 1)
                 }, 800);
-                console.log("not matched")
             }
         }
+       if(matched.length===12){
+        navigate("/end")
+       }
     }, [flip])
+
     return (
         <div className='wrapper'>
             <div className='record'>

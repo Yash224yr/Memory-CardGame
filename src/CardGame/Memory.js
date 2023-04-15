@@ -7,7 +7,7 @@ export const cardcontext = createContext(null)
 
 function Memory() {
     const [moves, setmoves] = useState(0)
-    const [timer, settimer] = useState(20)
+    const [timer, settimer] = useState(30)
     
     return (
         <cardcontext.Provider value={{moves, setmoves, timer, settimer}}>
