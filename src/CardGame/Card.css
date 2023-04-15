@@ -9,6 +9,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+.record{
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  justify-content: space-around;
+  margin-bottom: 15px;
 }
 .cardbox{
     height: 90%;
@@ -29,7 +37,7 @@
   }
   
  
-  .flip-card-inner {
+  .matched {
     position: relative;
     width: 100%;
     height: 100%;
@@ -38,7 +46,7 @@
     transform-style: preserve-3d;
   }
   
-  .active {
+  .matched {
     transform: rotateY(180deg);
   }
   
@@ -71,55 +79,67 @@
     height: 80%;
   }
 
+  .start{
+    background-image: url("../CardGame/Images/game.jpg");
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+  .start button{
+    height: 48px;
+    width: 147px;
+    border-radius: 20px;
+    background-color: rebeccapurple;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .start a{
+    text-decoration: none;
+    color: white;
+  }
 
-@media all and (max-width:1181px){
-  .cardbox{
-    width: 80%;
+  .end{
+    background-image: url("../CardGame/Images/game2.jpg");
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
   }
-}
-@media all and (max-width:717px){
-  .cardbox{
-    width: 95%;
+  .end h1{
+    font-size: 70px;
+    color:rgb(69, 34, 101);
   }
-}
-@media all and (max-width:615px){
-  .cardbox{
-    width: 90%;
+  .end p{
+    font-size: 30px;
   }
-  .flip-card{
-    margin: 17px;
-  }
-}
-@media all and (max-width:550px){
+
+@media all and (max-width:1170px){
   .cardbox{
     width: 100%;
   }
+}
+@media all and (max-width:700px){
+  .record{
+    width: 100%;
+  }
+}
+@media all and (max-width:590px){
   .flip-card{
-    width: 25%;
+    width: 20%;
+    height: 17%;
+  }
+}
+
+@media all and (max-width:390px){
+  .flip-card{
+    width: 20%;
     height: 18%;
+    margin: 20px;
   }
 }
-@media all and (max-width:400px){
-  .cardbox{
-    width: 100%;
-  }
-  .flip-card{
-    width: 24%;
-    height: 19%;
-  }
-}
-@media all and (max-width:364px){
-  .cardbox{
-    width: 100%;
-  }
-  .flip-card{
-    margin: 16px;
-  }
-}
-
-@media all and (max-width:347px){
-  .flip-card{
-    margin: 8px;
-  }
-}
-

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import "./Card.css"
 import ninja from "../CardGame/Images/ninja.png"
 import shinchan from "../CardGame/Images/shinchan.png"
@@ -7,6 +7,7 @@ import bird from "../CardGame/Images/bird.png"
 import mouse from "../CardGame/Images/mouse.png"
 import rabbit from "../CardGame/Images/rabbit.png"
 import backimage from "../CardGame/Images/backimage.png"
+import { cardcontext } from './Memory'
 
 function Card() {
 
@@ -34,36 +35,69 @@ function Card() {
     }, [])
 
 
-    const [flip, setflip] = useState([]);
-    const [check, setcheck] = useState([]);
-
+    const [check, setcheck] = useState([])
+    const [flip, setflip] = useState([])
+    const [matched, setMatched] = useState([])
+    const {moves, setmoves} = useContext(cardcontext)
+    const {timer, settimer} = useContext(cardcontext)
+    
 
     function handleclick(index, id) {
         setflip([...flip, index])
         setcheck([...check, id])
-        if (flip.length === 2) {
-            if (check[0] === check[1]) {
-                console.log("done")
-                setflip([])
-                setcheck([])
-            }
-            else {
-                setflip([])
-                setcheck([])
-            }
-        }
     }
 
 
+
+    useEffect(() => {
+        if (timer > 0) {
+         settimer(timer-1)
+        }
+        else {
+          const timeend = setInterval(() => {
+            console.log("done")
+          }, 1000)
+          return () => clearInterval(timeend)
+        }
+      }, [timer])
+
+
+
+
+    useEffect(() => {
+        console.log(check)
+
+        if (flip.length === 2) {
+            if (check[0] === check[1]) {
+                setMatched([...matched, check[0], check[1]])
+                console.log("matched")
+                setflip([])
+                setcheck([])
+                setmoves(moves+1)
+            }
+            else {
+                setTimeout(() => {
+                    setflip([])
+                    setcheck([])
+                setmoves(moves+1)
+                }, 800);
+                console.log("not matched")
+            }
+        }
+    }, [flip])
     return (
         <div className='wrapper'>
+            <div className='record'>
+                <h1>Moves : {moves}</h1>
+                <h1>Time : {timer}</h1>
+            </div>
             <div className='cardbox'>
                 {
                     data.map((element, index) => {
                         return (
                             <div className="flip-card" key={index} onClick={() => { handleclick(index, element.id) }}>
-                                <div className="flip-card-inner" style={{ transform: index === flip[0] || index === flip[1] ? 'rotateY(180deg)' : 'none' }}>
-                                    <div className="flip-card-front" >
+                                <div className={`${flip.includes(index) || matched.includes(element.id) ? 'matched' : ''}`}>
+                                    <div className="flip-card-front"  >
                                         <img src={backimage}></img>
                                     </div>
                                     <div className="flip-card-back">

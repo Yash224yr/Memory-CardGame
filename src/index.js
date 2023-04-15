@@ -1,6 +1,7 @@
 import React, { Profiler } from 'react';
 import ReactDOM from 'react-dom/client';
 import Card from './CardGame/Card';
+import Memory from './CardGame/Memory';
 // import App from './Ecommerce/App';
 // import Quiz from './Quiz/Quiz';
 // import Home from './MobCompare/Home';
@@ -41,7 +42,7 @@ root.render(
    //    <App/>
    // </Provider>
    // <App></App>
-   <Card/>
+   <Memory/>
 );
 
 
